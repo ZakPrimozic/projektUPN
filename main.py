@@ -7,9 +7,5 @@ app = Flask(__name__)
 def glavna_stran():
     return render_template("glavna.html")
 
-
-
-@app.route('/login')
-def login():
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
