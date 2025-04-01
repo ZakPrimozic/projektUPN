@@ -11,6 +11,7 @@
             color: #333;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .navbar {
@@ -55,11 +56,14 @@
             color: #f2b800;
         }
         
-        footer{
+        footer {
             background-color: #000; 
             color: white; 
-            text-align: center; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 15px;  
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .gumb_za_darkmode {
@@ -67,18 +71,132 @@
             font-size: 8px;
             border-radius: 10%;
             cursor: pointer;
-            margin-top: 20px;
         }
+        
         body.dark-mode {
             background-color: #121212;
             color: white;
         }
-        main{
-            text-align: center; 
-            padding: 400px;
+
+        footer.dark-mode {
+            background-color: #333;
+        }
+
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
             background-image: url("static/photos/odzadje.jpg");
-            max-width: 100%; 
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            padding: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        main::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(255, 255, 255, 0));
+            z-index: 1;
+        }
+
+        .okvir {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-in-out forwards;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .typing {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #333;
+            animation: typing 3s steps(30, end) forwards, blink 0.8s infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .navigation-buttons button {
+            background-color: #000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            font-size: 20px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 50px;
+            height: 50px;
+        }
+
+        .navigation-buttons button:hover {
+            background-color: #f2b800;
+            transform: scale(1.1);
+        }
+
+        .navigation-buttons button:focus {
+            outline: none;
+        }
+
+        .navigation-buttons button:before {
+            content: '';
+            font-size: 20px;
+        }
+
+        .navigation-buttons .prev:before {
+            content: '←';
+        }
+
+        .navigation-buttons .next:before {
+            content: '→';
         }
     </style>
 </head>
@@ -97,19 +215,43 @@
         </nav>
     </header>
     <main>
-       
+        <div class="okvir">
+            <h2><span class="typing">Dobrodošli na BrainMatura!</span></h2>
+            <p id="description">BrainMatura je platforma, ki vam pomaga pri učenju in pripravi na maturo. Tukaj najdete kvize, interaktivne vaje in druge pripomočke za izboljšanje znanja.</p>
+            <div class="navigation-buttons">
+                <button class="prev" onclick="changeContent(-1)"></button>
+                <button class="next" onclick="changeContent(1)"></button>
+            </div>
+        </div>
     </main>
     <footer>
-        <button id="toggleBtn" class="gumb_za_darkmode">Preklopi na temni način</button>
+        <div class="footer-left">
+            <p>Avtorja: Žak in Maks</p>
+            <p>Kontakt: info@brainmatura.si</p>
+        </div>
+        <div class="footer-right">
+            <button id="toggleBtn" class="gumb_za_darkmode">Preklopi na temni način</button>
+        </div>
     </footer>
     <script>
+        const descriptions = [
+            "1. letnik: Ponuja znanje samo prvega letnika, dostopas lahko do kvizov in iteraktivnih vaj.",
+            "2. letnik:  Ponuja znanje prvega in drugega letnika, dostopas lahko do kvizov in iteraktivnih vaj.",
+            "3. letnik: Priprava na maturo z zahtevnejšimi vajami dostop do vseh vaj.",
+            "Matura: Intenzivna priprava in kvizi za maturo. MORS NARDIT MATURO AJD COMMON"
+        ];
+        let index = 0;
+
+        function changeContent(direction) {
+            index = (index + direction + descriptions.length) % descriptions.length;
+            document.getElementById("description").textContent = descriptions[index];
+        }
+
         const toggleBtn = document.getElementById("toggleBtn");
-        const body = document.body;
-
-        toggleBtn.addEventListener("click", () => {
-            body.classList.toggle("dark-mode");
-
-            if (body.classList.contains("dark-mode")) {
+        toggleBtn.addEventListener("click", function() {
+            document.body.classList.toggle("dark-mode");
+            document.querySelector("footer").classList.toggle("dark-mode");
+            if (document.body.classList.contains("dark-mode")) {
                 toggleBtn.textContent = "Preklopi na svetli način";
             } else {
                 toggleBtn.textContent = "Preklopi na temni način";
