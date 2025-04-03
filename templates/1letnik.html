@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-spacing: 0;
+        }
+
+        td {
+            text-align: left;
+            padding: 10px;
+            font-size: 1.1em;
+        }
+        strong {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+            margin-bottom: 5px;
+        }
+        input[type="button"], input[type="reset"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="button"]:hover, input[type="reset"]:hover {
+            background-color: #45a049;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1.1em;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        textarea:focus {
+            border-color: #4CAF50;
+        }
+        input[name="percentage"] {
+            padding: 10px;
+            font-size: 1.1em;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            form {
+                width: 100%;
+                max-width: none;
+                padding: 15px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            input[type="button"], input[type="reset"] {
+                width: 100%;
+            }
+        }
+        .siva {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+    <form name="quiz">
+        <table>
+           <tr>
+               <td>
+                   <strong>1. Računalnik so v začetku načrtovali kot napravo za: </strong><br />
+                   <input name="vprasanje1" type="radio" value="meritve"> meritve <br />
+                   <input name="vprasanje1" type="radio" value="izvajanje osnovnih matematičnih operacij ( +, - , × , ÷ )"> izvajanje osnovnih matematičnih operacij ( +, - , × , ÷ ) <br />
+                   <input name="vprasanje1" type="radio" value="komuniciranje"> komuniciranje 
+               </td>
+           </tr>
+           <tr>
+               <td><strong>2. Kaj je integrirano vezje? </strong><br />
+                   <input name="vprasanje2" type="radio" value="drugo ime za računalnik"> drugo ime za računalnik <br />
+                   <input name="vprasanje2" type="radio" value="tranzistroji, ki so povezani z drobnimi žicami"> tranzistroji, ki so povezani z drobnimi žicami <br />
+                   <input name="vprasanje2" type="radio" value="ploščica s pomanjšanimi elektronskimi elementi"> ploščica s pomanjšanimi elektronskimi elementi 
+               </td>
+           </tr>
+           <tr>
+               <td><strong>3. Informatika je: </strong><br />
+                   <input name="vprasanje3" type="radio" value="veda, ki proučuje obdelavo informacij"> veda, ki proučuje obdelavo informacij <br />
+                   <input name="vprasanje3" type="radio" value="veda, ki proučuje zbiranje informacij"> veda, ki proučuje zbiranje informacij <br />
+                   <input name="vprasanje3" type="radio" value="veda o elektronskem prenašanju sporočil"> veda o elektronskem prenašanju sporočil
+               </td>
+           </tr>
+           <tr>
+               <td><strong>4. Z računalnikom lahko podatke: </strong><br />
+                   <input name="vprasanje4" type="radio" value="le obdelujemo"> le obdelujemo <br />
+                   <input name="vprasanje4" type="radio" value="le shranjujemo"> le shranjujemo <br />
+                   <input name="vprasanje4" type="radio" value="obdelujemo in shranjujemo"> obdelujemo in shranjujemo 
+               </td>
+           </tr>
+           <tr>
+               <td><strong>5. Kaj proučuje teorija informacije? </strong><br />
+                   <input name="vprasanje5" type="radio" value="zakonitosti v zvezi z zbiranjem in prenašanjem informacij"> zakonitosti v zvezi z zbiranjem in prenašanjem informacij <br />
+                   <input name="vprasanje5" type="radio" value="resničnost iformacije"> resničnost iformacije <br />
+                   <input name="vprasanje5" type="radio" value="kako inforamcije z računalnikom obdelujemo"> kako inforamcije z računalnikom obdelujemo 
+               </td>
+           </tr>
+           <tr>
+               <td><strong>6. Izračunaj oziroma drugače utemelji dvojiški zapis desetiškega števila 139 je: </strong><br />
+                   <input name="vprasanje6" type="radio" value="11110001"> 11110001 <br />
+                   <input name="vprasanje6" type="radio" value="10001111"> 10001111 <br />
+                   <input name="vprasanje6" type="radio" value="10001011"> 10001011 
+               </td>
+           </tr>
+           <tr>
+               <td><strong>7. Rešitev poskusa s 32 mogočimi izidi da: </strong><br />
+                   <input name="vprasanje7" type="radio" value="5 bitov informacije"> 5 bitov informacije <br />
+                   <input name="vprasanje7" type="radio" value="8 bitov informacije"> 8 bitov informacije <br />
+                   <input name="vprasanje7" type="radio" value="32 bitov informacije"> 32 bitov informacije
+               </td>
+           </tr>
+           <tr>
+               <td><strong>8. Kaj pomeni kodiranje v informatiki? </strong><br />
+                   <input name="vprasanje8" type="radio" value="prenašanje kodnih signalov po zvezah"> prenašanje kodnih signalov po zvezah <br />
+                   <input name="vprasanje8" type="radio" value="pretvorbo sporočila v zaporedje signalov"> pretvorbo sporočila v zaporedje signalov <br />
+                   <input name="vprasanje8" type="radio" value="skrivno šifriranje besedila"> skrivno šifriranje besedila 
+               </td>
+           </tr>
+           <tr>
+               <td><strong>9. Kaj lahko shranjujemo z računalnikom? </strong><br />
+                   <input name="vprasanje9" type="radio" value="z računalnikom podatke lahko le obdelujemo"> z računalnikom podatke lahko le obdelujemo <br />
+                   <input name="vprasanje9" type="radio" value="razne vrste podatkov"> razne vrste podatkov <br />
+                   <input name="vprasanje9" type="radio" value="samo številske podatke"> samo številske podatke
+               </td>
+           </tr>
+           <tr>
+               <td><strong>10. Človek informacije sprejema: </strong><br />
+                   <input name="vprasanje10" type="radio" value="zavestno in podzavestno"> zavestno in podzavestno <br />
+                   <input name="vprasanje10" type="radio" value="samo v vizualni obliki"> samo v vizualni obliki <br />
+                   <input name="vprasanje10" type="radio" value="samo zavestno"> samo zavestno
+               </td>
+           </tr>
+           <tr>
+               <td class="siva">
+                   <br />
+                   <input type="button" value="Preveri pravilnost odgovorov!" onclick="izracunajRezultat(document.quiz)">
+                   <input type="reset" value="Ponovno" name="reset"><br />
+                   <br />
+                   <strong>Odstotne točke = </strong><input name="percentage" size="15"><br />
+                   <br />
+                   <strong>Pravilni odgovori:</strong><br />                                   
+                   <textarea cols="64" name="solutions" rows="11" wrap="virtual"></textarea>
+               </td>
+           </tr>
+       </table>
+    </form>
+    
+    <script>
+        var steviloVprasanj = 10;
+        var steviloOdgovorov = 3;
+
+        function izracunajRezultat(form) {
+            var tocke = 0;
+            var trenutniElement;
+            var trenutnaIzbira;
+
+            // Loop through questions
+            for (var i = 0; i < steviloVprasanj; i++) {
+                trenutniElement = i * steviloOdgovorov;
+                for (var j = 0; j < steviloOdgovorov; j++) {
+                    trenutnaIzbira = form.elements["vprasanje" + (i+1)][j]; // Corrected element access
+                    if (trenutnaIzbira.checked) {
+                        if (trenutnaIzbira.value == odgovor[i]) {
+                            tocke++;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Calculate percentage
+            tocke = Math.round((tocke / steviloVprasanj) * 100);
+            form.percentage.value = tocke + "%";
+
+            // Show correct answers
+            var pravilniOdgovor = "";
+            for (var i = 0; i < steviloVprasanj; i++) {
+                pravilniOdgovor += (i + 1) + ". " + odgovor[i] + "\r\n";
+            }
+            form.solutions.value = pravilniOdgovor;
+        }
+        
+        var odgovor = [
+            "izvajanje osnovnih matematičnih operacij ( +, - , × , ÷ )",
+            "ploščica s pomanjšanimi elektronskimi elementi",
+            "veda o elektronskem prenašanju sporočil",
+            "obdelujemo in shranjujemo",
+            "zakonitosti v zvezi z zbiranjem in prenašanjem informacij",
+            "10001011",
+            "5 bitov informacije",
+            "pretvorbo sporočila v zaporedje signalov",
+            "razne vrste podatkov",
+            "zavestno in podzavestno"
+        ];
+    </script>
+</body>
+</html>
