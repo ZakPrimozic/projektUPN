@@ -206,12 +206,10 @@
             var tocke = 0;
             var trenutniElement;
             var trenutnaIzbira;
-
-            // Loop through questions
             for (var i = 0; i < steviloVprasanj; i++) {
                 trenutniElement = i * steviloOdgovorov;
                 for (var j = 0; j < steviloOdgovorov; j++) {
-                    trenutnaIzbira = form.elements["vprasanje" + (i+1)][j]; // Corrected element access
+                    trenutnaIzbira = form.elements["vprasanje" + (i+1)][j];
                     if (trenutnaIzbira.checked) {
                         if (trenutnaIzbira.value == odgovor[i]) {
                             tocke++;
@@ -220,12 +218,8 @@
                     }
                 }
             }
-
-            // Calculate percentage
             tocke = Math.round((tocke / steviloVprasanj) * 100);
             form.percentage.value = tocke + "%";
-
-            // Show correct answers
             var pravilniOdgovor = "";
             for (var i = 0; i < steviloVprasanj; i++) {
                 pravilniOdgovor += (i + 1) + ". " + odgovor[i] + "\r\n";

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static/photos/logo.jpg" type="image/x-icon">
     <title>BRAINMATURA</title>
     <style>
         body {
@@ -211,7 +212,8 @@
             <a href="#">2 letnik</a>
             <a href="#">3 letnik</a>
             <a href="#">Matura</a>
-            <a href="#">Prijava</a>
+            <a href="/prijava">Prijava</a>
+            <a href="#" onclick="logout()">Odjava</a>
         </nav>
     </header>
     <main>
@@ -257,6 +259,17 @@
                 toggleBtn.textContent = "Preklopi na temni način";
             }
         });
+        function setCookie(name, value, days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); 
+        var expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+        function logout() {
+            setCookie("user_logged_in", "", -1);
+            setCookie("username", "", -1); 
+            window.location.href = "/"; 
+        }
     </script>
 </body>
 </html>

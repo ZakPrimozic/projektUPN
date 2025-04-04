@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Vnos uporabnika</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        #userForm {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        button[type="submit"]:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>Vnesi podatke</h2>
+    <form id="userForm">
+        <label for="ime">Ime:</label>
+        <input type="text" id="ime" name="ime" required><br><br>
+
+        <label for="priimek">Priimek:</label>
+        <input type="text" id="priimek" name="priimek" required><br><br>
+
+        <label for="starost">Starost:</label>
+        <input type="number" id="starost" name="starost" required><br><br>
+
+        <label for="sola">Šola:</label>
+        <input type="text" id="sola" name="sola" required><br><br>
+
+        <button type="submit">Shrani</button>
+    </form>
+    <script>
+        $(document).ready(function() {
+            $("#userForm").submit(function(event) {
+                event.preventDefault(); 
+                var userData = {
+                    ime: $("#ime").val(),
+                    priimek: $("#priimek").val(),
+                    starost: parseInt($("#starost").val()),
+                    sola: $("#sola").val()
+                };
+                $.ajax({
+                    url: "/shrani",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(userData),
+                    success: function(response) {
+                        $("#userForm")[0].reset();
+                        window.location.href = "/";
+                    },
+                });
+            });
+        });
+    </script>    
+</body>
+</html>
