@@ -33,6 +33,14 @@ def shrani_uporabnika():
 @app.route("/uporabniki", methods=["GET"])
 def pridobi_uporabnike():
     return jsonify(db.all())
-
+    
+@app.route('/graf_mature', methods=['GET'])
+def graf_mature():
+    podatki = {
+        "skupno": 6294,
+        "uspesno": 5592,
+        "neuspesno": 702
+    }
+    return jsonify(podatki)
 if __name__ == '__main__':
     app.run(debug=True, port=8080)

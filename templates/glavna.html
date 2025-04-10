@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="static/photos/logo.jpg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>BRAINMATURA</title>
     <style>
         body {
@@ -122,7 +123,22 @@
             width: 100%;
             box-sizing: border-box;
         }
-
+        .grafOkvir {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-in-out forwards;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -225,6 +241,10 @@
                 <button class="next" onclick="changeContent(1)"></button>
             </div>
         </div>
+        <div class = "grafOkvir">
+            <h2><span>Graf dijakov, ki so naredili maturo</span></h2>
+            <canvas id="grafMature" width="200" height="200"></canvas> 
+        </div>
     </main>
     <footer>
         <div class="footer-left">
@@ -270,6 +290,32 @@
             setCookie("username", "", -1); 
             window.location.href = "/"; 
         }
+        fetch('/graf_mature')
+            .then(response => response.json())
+            .then(podatki => {
+                const ctx = document.getElementById('grafMature').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['opravili maturo', 'ST_dijakov', 'neuspešnih dijakov'],  // Oznake za graf
+                        datasets: [{
+                            label: 'Število kvizov',
+                            data: [podatki.uspesno, podatki.skupno, podatki.neuspesno],  // Podatki iz API-ja
+                            backgroundColor: ['#4CAF50', '#2196F3', '#FFC107'],
+                            borderRadius: 10
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: { display: false },
+                            title: {
+                                display: true
+                            }
+                        }
+                    }
+                });
+            })
     </script>
 </body>
 </html>
