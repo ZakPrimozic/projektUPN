@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 from tinydb import TinyDB, Query
-
+import json
 app = Flask(__name__)
 
-db = TinyDB("uporabni.json") 
+db = TinyDB("uporabni.json")
+vprasanja_db = TinyDB("matura_vprasanja.json")
 User = Query()
 
 @app.route('/')
@@ -42,5 +43,38 @@ def graf_mature():
         "neuspesno": 702
     }
     return jsonify(podatki)
+
+
+def nalozi_vprasanja():
+    with open("matura_vprasanja.json", "r", encoding="utf-8") as f:
+        return json.load(f)
+    
+
+@app.route("/matura", methods=["GET", "POST"])
+def kviz():
+    vprasanja = nalozi_vprasanja()
+    rezultati = []
+
+    if request.method == "POST":
+        for i, v in enumerate(vprasanja):
+            uporabnikov_odgovor = request.form.get(f"odgovor_{i}")
+            pravilen = str(v["odgovor"]).lower()
+            rezultat = {
+                "naslov": v["naslov"],
+                "vprasanje": v["vprasanje"],
+                "pravilen": pravilen,
+                "uporabnikov": uporabnikov_odgovor,
+                "je_pravilen": uporabnikov_odgovor == pravilen
+            }
+            rezultati.append(rezultat)
+        pravilni = sum(1 for r in rezultati if r["je_pravilen"])
+        napacni = len(rezultati) - pravilni
+        return render_template(
+            "matura.html",
+            rezultati=rezultati,
+            pravilni=pravilni,
+            napacni=napacni
+        )
+    return render_template("matura.html", vprasanja=vprasanja)
 if __name__ == '__main__':
     app.run(debug=True, port=8080)

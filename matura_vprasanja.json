@@ -1,0 +1,103 @@
+[
+    {
+      "naslov": "Slovnica - Skloni",
+      "vprasanje": "Samostalnik v rodilniku odgovarja na vprašanje 'koga ali česa'?",
+      "odgovor": true
+    },
+    {
+      "naslov": "Slovnica - Glagoli",
+      "vprasanje": "V slovenščini poznamo samo sedanjik in preteklik.",
+      "odgovor": false
+    },
+    {
+      "naslov": "Slovnica - Priredja",
+      "vprasanje": "V prirednem stavčnem razmerju sta stavka med seboj enakovredna.",
+      "odgovor": true
+    },
+    {
+      "naslov": "Slovnica - Skupine besed",
+      "vprasanje": "Besedna zveza 'velik rdeč avto' vsebuje tri jedra.",
+      "odgovor": false
+    },
+    {
+      "naslov": "Slovnica - Glagolski način",
+      "vprasanje": "V nakazovalnem načinu izražamo dvom, možnost ali željo.",
+      "odgovor": false
+    },
+    {
+      "naslov": "Slovnica - Samostalnik",
+      "vprasanje": "Samostalniki imajo v slovenščini šest sklonov.",
+      "odgovor": false
+    },
+    {
+      "naslov": "Slovnica - Pridevniki",
+      "vprasanje": "Stopnjevanje pridevnikov je možno samo pri lastnostnih pridevnikih.",
+      "odgovor": true
+    },
+    {
+      "naslov": "Slovnica - Glagolski vid",
+      "vprasanje": "Glagolski vid označuje trajanje oziroma dokončanost dejanja.",
+      "odgovor": true
+    },
+    {
+      "naslov": "Slovnica - Stavčna členitev",
+      "vprasanje": "Povedek je obvezen stavčni člen v vsaki povedi.",
+      "odgovor": true
+    },
+    {
+      "naslov": "Slovnica - Naglas",
+      "vprasanje": "Vse slovenščine imajo stalni naglas na prvem zlogu.",
+      "odgovor": false
+    },
+    {
+        "naslov": "Slovnica - Pridevniki",
+        "vprasanje": "Pridevniki se ujemajo s samostalniki v spolu, številu in sklonu.",
+        "odgovor": true
+    },
+    {
+        "naslov": "Slovnica - Samostalnik",
+        "vprasanje": "V slovenščini obstajajo samo moški in ženski samostalniški spol.",
+        "odgovor": false
+      },
+      {
+        "naslov": "Slovnica - Glagolski čas",
+        "vprasanje": "Pluskvamperfekt izraža dejanje, ki se je zgodilo pred drugim preteklim dejanjem.",
+        "odgovor": true
+      },
+      {
+        "naslov": "Slovnica - Vezniki",
+        "vprasanje": "Veznik 'ker' izraža časovno razmerje.",
+        "odgovor": false
+      },
+      {
+        "naslov": "Slovnica - Prislovi",
+        "vprasanje": "Prislovi so nespremenljive besede.",
+        "odgovor": true
+      },
+      {
+        "naslov": "Slovnica - Stavki",
+        "vprasanje": "Enodelni stavek nima osebne glagolske oblike.",
+        "odgovor": true
+      },
+      {
+        "naslov": "Slovnica - Glagoli",
+        "vprasanje": "Povratni glagoli vedno potrebujejo osebni zaimek.",
+        "odgovor": false
+      },
+      {
+        "naslov": "Slovnica - Naglas",
+        "vprasanje": "Slovenščina pozna več naglasnih tipov besed.",
+        "odgovor": true
+      },
+      {
+        "naslov": "Slovnica - Stavčna členitev",
+        "vprasanje": "Določilo izraža zlasti čas, kraj, način ali vzrok dejanja.",
+        "odgovor": true
+      },
+      {
+        "naslov": "Slovnica - Zloženi glagolski časi",
+        "vprasanje": "Pri zloženih časih je pomožni glagol vedno 'biti'.",
+        "odgovor": true
+      }
+  ]
+  
