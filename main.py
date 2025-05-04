@@ -78,8 +78,6 @@ def kviz():
             napacni=napacni
         )
     return render_template("matura.html", vprasanja=vprasanja)
-
-
 @app.route('/shrani_rezultat', methods=['POST'])
 def shrani_rezultat():
     podatki = request.json
