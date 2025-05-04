@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 from tinydb import TinyDB, Query
 import json
+from datetime import datetime
 app = Flask(__name__)
 
 db = TinyDB("uporabni.json")
 vprasanja_db = TinyDB("matura_vprasanja.json")
+rez_db = TinyDB('rezultati.json')
 User = Query()
 
 @app.route('/')
@@ -76,5 +78,20 @@ def kviz():
             napacni=napacni
         )
     return render_template("matura.html", vprasanja=vprasanja)
+
+
+@app.route('/shrani_rezultat', methods=['POST'])
+def shrani_rezultat():
+    podatki = request.json
+    uporabnik = podatki['uporabnik']
+    obstaja = db.search(User.ime == uporabnik)
+    rezultat = {
+        'uporabnik': uporabnik,
+        'tocke': podatki['tocke'],
+        'skupno': podatki['skupno'],
+        'datum': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    }
+    rez_db.insert(rezultat)
+    return jsonify({"sporocilo": "Rezultat shranjen!"}), 200
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
