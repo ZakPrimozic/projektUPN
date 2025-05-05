@@ -228,9 +228,13 @@
             <a href="#">2 letnik</a>
             <a href="#">3 letnik</a>
             <a href="/matura">Matura</a>
-            <a href="/prijava">Prijava</a>
-            <a href="#" onclick="logout()">Odjava</a>
-        </nav>
+            <a href="/dnevno_vprasanje">Dnevni Kviz</a>
+            {% if session.logged_in %}
+                <span style ="color: yellow";>{{ session.username }}</span>
+                <a href="/odjava">Odjava</a>
+            {% else %}
+                <a href="/prijava">Prijava</a>
+            {% endif %}
     </header>
     <main>
         <div class="okvir">
@@ -260,7 +264,7 @@
             "1. letnik: Ponuja znanje samo prvega letnika, dostopas lahko do kvizov in iteraktivnih vaj.",
             "2. letnik:  Ponuja znanje prvega in drugega letnika, dostopas lahko do kvizov in iteraktivnih vaj.",
             "3. letnik: Priprava na maturo z zahtevnejšimi vajami dostop do vseh vaj.",
-            "Matura: Intenzivna priprava in kvizi za maturo. MORS NARDIT MATURO AJD COMMON"
+            "Matura: Intenzivna priprava in kvizi za maturo."
         ];
         let index = 0;
 
@@ -285,11 +289,6 @@
         var expires = "expires=" + date.toUTCString();
         document.cookie = name + "=" + value + ";" + expires + ";path=/";
         }
-        function logout() {
-            setCookie("user_logged_in", "", -1);
-            setCookie("username", "", -1); 
-            window.location.href = "/"; 
-        }
         fetch('/graf_mature')
             .then(response => response.json())
             .then(podatki => {
@@ -297,10 +296,10 @@
                 new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['opravili maturo', 'ST_dijakov', 'neuspešnih dijakov'],  // Oznake za graf
+                        labels: ['opravili maturo', 'ST_dijakov', 'neuspešnih dijakov'],
                         datasets: [{
                             label: 'Število kvizov',
-                            data: [podatki.uspesno, podatki.skupno, podatki.neuspesno],  // Podatki iz API-ja
+                            data: [podatki.uspesno, podatki.skupno, podatki.neuspesno], 
                             backgroundColor: ['#4CAF50', '#2196F3', '#FFC107'],
                             borderRadius: 10
                         }]
