@@ -3,11 +3,12 @@ from tinydb import TinyDB, Query
 import json
 from datetime import datetime
 import random
-
+from gemini_api import generate_gemini_response
 app = Flask(__name__)
 app.secret_key = 'ključ'
 db = TinyDB("uporabni.json")
 vprasanja_db = TinyDB("matura_vprasanja.json")
+vprasanja_api_db = TinyDB("db.json")
 rez_db = TinyDB('rezultati.json')
 User = Query()
 # ------------------------------------------------------------------------------------------------------- 
@@ -123,5 +124,31 @@ def dnevno_vprasanje():
 
     return render_template("dnevni_kviz.html",vprasanje=vprasanje,prikazi_rezultat=prikazi,je_pravilen=je_pravilen)
 # ------------------------------------------------------------------------------------------------------- 
+@app.route('/generate-question', methods=['POST'])
+def generate_question():
+    data = request.get_json()
+    prompt = data.get('prompt')
+    print("PRIMLJEN PROMPT:", prompt)
+
+    result = generate_gemini_response(prompt)
+    print("ODGOVOR GEMINI:", result)
+
+    if 'error' in result:
+        return jsonify(result), 500
+
+    try:
+        questions = json.loads(result['response'])
+        vprasanja_api_db.truncate()
+        vprasanja_api_db.insert_multiple(questions)
+        return jsonify({"message": "Generated and saved questions successfully!"})
+    except json.JSONDecodeError:
+        print("NAPAKA PRI JSON:", result['response'])
+        return jsonify({"error": "Gemini ni vrnil veljavnega JSON."}), 500
+# -------------------------------------------------------------------------------------------------------
+@app.route('/2letnik')
+def vprasanja_2letnik():
+    vprasanja = vprasanja_api_db.all()
+    return render_template('2letnik.html', vprasanja=vprasanja)
+# -------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
     app.run(debug=True, port=8080)

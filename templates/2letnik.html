@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <title>Vprašanja za 2. letnik</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .vprasanje { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
+        .odgovor, .razlaga { margin-top: 5px; color: #555; }
+    </style>
+</head>
+<body>
+    <h1>Vprašanja za 2. letnik</h1>
+
+    {% for v in vprasanja %}
+    <div class="vprasanje">
+        <strong>Vprašanje:</strong> {{ v.vprasanje }}<br>
+        <div class="odgovor"><strong>Odgovor:</strong> {{ v.odgovor }}</div>
+        <div class="razlaga"><strong>Razlaga:</strong> {{ v.razlaga }}</div>
+    </div>
+    {% endfor %}
+</body>
+</html>
