@@ -230,7 +230,7 @@
             <a href="/matura">Matura</a>
             <a href="/dnevno_vprasanje">Dnevni Kviz</a>
             {% if session.logged_in %}
-                <span style ="color: yellow";>{{ session.username }}</span>
+                <a href="/profil" style="color: yellow;">{{ session.username }}</a>
                 <a href="/odjava">Odjava</a>
             {% else %}
                 <a href="/prijava">Prijava</a>
@@ -278,9 +278,9 @@
             document.body.classList.toggle("dark-mode");
             document.querySelector("footer").classList.toggle("dark-mode");
             if (document.body.classList.contains("dark-mode")) {
-                toggleBtn.textContent = "Preklopi na svetli način";
-            } else {
                 toggleBtn.textContent = "Preklopi na temni način";
+            } else {
+                toggleBtn.textContent = "Preklopi na svetli način";
             }
         });
         function setCookie(name, value, days) {
