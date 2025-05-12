@@ -2,22 +2,181 @@
 <html lang="sl">
 <head>
     <meta charset="UTF-8">
-    <title>Vprašanja za 2. letnik</title>
+    <title>Kviz za 2. letnik</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .vprasanje { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
-        .odgovor, .razlaga { margin-top: 5px; color: #555; }
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .vprasanje-blok {
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        label {
+            margin-right: 20px;
+        }
+
+        button {
+            display: block;
+            margin: 20px auto 0 auto;
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .pravilen {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
+        }
+
+        .napacen {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
+        }
+
+        .rezultat {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        strong {
+            color: #333;
+        }
+
+        #graf {
+            max-width: 400px;
+            margin: 30px auto;
+        }
     </style>
 </head>
 <body>
-    <h1>Vprašanja za 2. letnik</h1>
+    <h1>Kviz za 2. letnik</h1>
 
-    {% for v in vprasanja %}
-    <div class="vprasanje">
-        <strong>Vprašanje:</strong> {{ v.vprasanje }}<br>
-        <div class="odgovor"><strong>Odgovor:</strong> {{ v.odgovor }}</div>
-        <div class="razlaga"><strong>Razlaga:</strong> {{ v.razlaga }}</div>
-    </div>
-    {% endfor %}
+    <form method="POST">
+        {% if vprasanja %}
+            {% for v in vprasanja %}
+                <div class="vprasanje-blok">
+                    <p>{{ v.vprasanje }}</p>
+                    <label>
+                        <input type="radio" name="odgovor_{{ loop.index0 }}" value="true" required> True
+                    </label>
+                    <label>
+                        <input type="radio" name="odgovor_{{ loop.index0 }}" value="false"> False
+                    </label>
+                </div>
+            {% endfor %}
+            <button type="submit">Oddaj kviz</button>
+        {% endif %}
+
+        {% if rezultati %}
+            <script>
+                localStorage.setItem("uporabnik", "{{ session.username }}");
+                localStorage.setItem("priimek", "{{ session.priimek }}");
+            </script>
+            <h2>Rezultati</h2>
+            <p style="text-align:center;">
+                Pravilni odgovori: <strong>{{ pravilni }}</strong><br>
+                Napačni odgovori: <strong>{{ napacni }}</strong>
+            </p>
+
+            {% for r in rezultati %}
+                <div class="rezultat {{ 'pravilen' if r.je_pravilen else 'napacen' }}">
+                    <p>{{ r.vprasanje }}</p>
+                    <p>Tvoj odgovor: <strong>{{ r.uporabnikov }}</strong></p>
+                </div>
+            {% endfor %}
+
+            <canvas id="graf" width="400" height="400"></canvas>
+            <button type="button" id="shrani-rezultate">Shrani rezultate</button>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const ctx = document.getElementById('graf').getContext('2d');
+                const graf = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Pravilno', 'Napačno'],
+                        datasets: [{
+                            data: [{{ pravilni }}, {{ napacni }}],
+                            backgroundColor: ['#28a745', '#dc3545'],
+                            borderColor: ['#ffffff', '#ffffff'],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+
+                function posljiRezultat(tocke, skupaj) {
+                    let uporabnik = localStorage.getItem('uporabnik');
+                    let priimek = localStorage.getItem('priimek');
+                    if (!uporabnik) {
+                        console.warn("Uporabnik ni nastavljen.");
+                        return;
+                    }
+                    $.ajax({
+                        url: '/shrani_rezultat',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            uporabnik: uporabnik,
+                            priimek: priimek,
+                            tocke: tocke,
+                            skupno: skupaj,
+                            kategorija: "2letnik"
+                        }),
+                        success: function (res) {
+                            alert("Rezultat uspešno shranjen!");
+                            window.location.href = "/";
+                        },
+                        error: function (err) {
+                            console.error("Napaka pri shranjevanju:", err);
+                            alert("Rezultata ni bilo mogoče shraniti.");
+                        }
+                    });
+                }
+
+                document.getElementById('shrani-rezultate').addEventListener('click', function () {
+                    posljiRezultat({{ pravilni }}, {{ pravilni + napacni }});
+                });
+            </script>
+        {% endif %}
+    </form>
 </body>
 </html>

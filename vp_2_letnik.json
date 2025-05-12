@@ -1,0 +1,157 @@
+[
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "V slovenščini ločimo med glagolskimi in samostalniškimi besednimi vrstami.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Poved je lahko enostavna ali zložena.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "V vseh primerih uporabljamo veliko začetnico pri pisanju poštnih naslovov.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Pridevnik se skloni po spolu, številu in sklonu.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Romantika je sledila realizmu.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Beseda 'bralec' je tvorjena iz glagola 'brati'.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Pred ločili v slovenščini pišemo presledek.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Povezovalna veznika 'in' in 'ali' povezujejo enakovredne stavčne člene.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "France Prešeren je predstavnik slovenske moderne.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Odvisni stavek ne more obstajati samostojno.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Glagoli imajo kategoriji spola in vida.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Besedo 'Evropa' pišemo z malo začetnico.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Beseda 'nepismen' vsebuje predpono.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Kratka zgodba je obsežnejša od romana.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "V slovenščini poznamo šest sklonov.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Pridevnik je pregibna besedna vrsta.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Vprašalna poved nima glagola.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Ivan Cankar je predstavnik realizma in moderne.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Skloni obstajajo samo pri glagolih.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Zlaganka je beseda, sestavljena iz dveh ali več osnov.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Pike v povedi niso obvezne.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Balada je vrsta lirsko-epične pesmi.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Samostalnik ima število in spol.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Zvezek in zvezekov sta v istem sklonu.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Lirika je vedno dolga prozna oblika.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Glavni stavek lahko obstaja samostojno.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Klicaj in vprašaj sodita med končna ločila.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Beseda 'zmrzal' je skovanka.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Prešeren je pisal tudi sonete.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Vrsti stavkov sta samo glavni in pogojni.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "V slovenščini ločimo ednino, dvojino in množino.",
+        "odgovor": "true"
+    }
+]

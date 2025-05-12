@@ -4,11 +4,14 @@ import json
 from datetime import datetime
 import random
 from gemini_api import generate_gemini_response
+# ------------------------------------------------------------------------------------------------------- 
 app = Flask(__name__)
 app.secret_key = 'ključ'
+# ------------------------------------------------------------------------------------------------------- 
 db = TinyDB("uporabni.json")
 vprasanja_db = TinyDB("matura_vprasanja.json")
 rez_db = TinyDB('rezultati.json')
+flash_db = TinyDB("flash_kartice.json")
 User = Query()
 # ------------------------------------------------------------------------------------------------------- 
 @app.route('/')
@@ -37,6 +40,7 @@ def shrani_uporabnika():
     db.insert(nova_vnos)
     session["logged_in"] = True
     session["username"] = nova_vnos.get("ime", "")
+    session["priimek"] = nova_vnos.get("priimek", "")
     return jsonify({"message": "Podatki shranjeni!"}), 201
 # ------------------------------------------------------------------------------------------------------- 
 @app.route("/odjava")
@@ -93,13 +97,15 @@ def kviz():
 @app.route('/shrani_rezultat', methods=['POST'])
 def shrani_rezultat():
     podatki = request.json
-    uporabnik = podatki['uporabnik']
-    obstaja = db.search(User.ime == uporabnik)
+    uporabnik = session.get("username")
+    priimek = session.get("priimek")
     rezultat = {
         'uporabnik': uporabnik,
+        'priimek': priimek,
         'tocke': podatki['tocke'],
         'skupno': podatki['skupno'],
-        'datum': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        'datum': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        'kategorija': podatki.get('kategorija', 'neznano')
     }
     rez_db.insert(rezultat)
     return jsonify({"sporocilo": "Rezultat shranjen!"}), 200
@@ -125,9 +131,10 @@ def dnevno_vprasanje():
 # ------------------------------------------------------------------------------------------------------- 
 @app.route("/profil")
 def profil():
-    uporabnik = session["username"]
-    podatki = db.get(User.ime == uporabnik)
-    rezultati = rez_db.search(User.uporabnik == uporabnik)
+    ime = session.get("username")
+    priimek = session.get("priimek")
+    podatki = db.get((User.ime == ime) & (User.priimek == priimek))
+    rezultati = rez_db.search((User.uporabnik == ime) & (User.priimek == priimek))
     sola = podatki.get("sola")
     starost = podatki.get("starost")
     if rezultati:
@@ -137,7 +144,53 @@ def profil():
         povprecje = round(skupne_tocke / len(rezultati), 2)
     else:
         povprecje = 0
-    return render_template("profil.html",uporabnik=uporabnik, sola=sola, starost=starost, rezultati=rezultati, povprecje=povprecje)
+    return render_template("profil.html",uporabnik=f"{ime} {priimek}", sola=sola, starost=starost, rezultati=rezultati, povprecje=povprecje)
+# ------------------------------------------------------------------------------------------------------- 
+def vprasanja_2_letnik():
+    with open("vp_2_letnik.json", "r", encoding="utf-8") as f:
+        vprasanja = json.load(f)
+    return vprasanja
+
+def premesaj_vprasanja(vprasanja):
+    random.shuffle(vprasanja)
+    return vprasanja 
+# ------------------------------------------------------------------------------------------------------- 
+@app.route("/2letnik", methods=["GET", "POST"])
+def kviz_2letnik():
+    vprasanja = vprasanja_2_letnik()
+    vprasanja = premesaj_vprasanja(vprasanja)
+
+    if request.method == "POST":
+        rezultati = []
+        pravilni = 0
+        for i in range(len(vprasanja)):
+            odgovor = request.form.get(f"odgovor_{i}")
+            pravilen = str(vprasanja[i]["odgovor"]).lower()
+            en_rezultat = {
+                "vprasanje": vprasanja[i]["vprasanje"],
+                "pravilen": pravilen,
+                "uporabnikov": odgovor,
+                "je_pravilen": odgovor == pravilen
+            }
+            rezultati.append(en_rezultat)
+            if odgovor == pravilen:
+                pravilni += 1
+        napacni =len(vprasanja)- pravilni
+        return render_template("2letnik.html", rezultati=rezultati, pravilni=pravilni, napacni=napacni)
+    return render_template("2letnik.html", vprasanja=vprasanja)
+# -------------------------------------------------------------------------------------------------------
+@app.route("/flash", methods=["GET", "POST"])
+def flash_kartice():
+    if request.method == "POST":
+        podatki = request.get_json()
+        nova = {
+            "vprasanje": podatki["vprasanje"],
+            "odgovor": podatki["odgovor"]
+        }
+        flash_db.insert(nova)
+        return jsonify({"status": "dodano"}), 200
+    kartice = flash_db.all()
+    return render_template("flash.html", kartice=kartice)
 # -------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
     app.run(debug=True, port=8080)
