@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mnenje uporabnikov</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            background-color: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            color: #f2b800;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+            font-size: 1rem;
+        }
+
+        button {
+            margin-top: 15px;
+            background-color: #f2b800;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #ffd400;
+            transform: scale(1.05);
+        }
+
+        .mnenja {
+            margin-top: 40px;
+        }
+
+        .mnenje {
+            background-color: #2a2a2a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 5px solid #f2b800;
+        }
+
+        .mnenje p {
+            margin: 0;
+        }
+
+        .mnenje strong {
+            color: #f2b800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pusti svoje mnenje</h1>
+        <form method="POST">
+            <input type="text" name="ime" placeholder="Ime">
+            <textarea name="besedilo" placeholder="Mnenje" rows="4" required></textarea>
+            <button type="submit">Oddaj mnenje</button>
+        </form>
+        <div class="mnenja">
+            <h2>Prejšnja mnenja</h2>
+            {% for m in mnenja %}
+            <div class="mnenje">
+                <p><strong>{{ m.ime or "Anonimno" }}:</strong></p>
+                <p>{{ m.besedilo }}</p>
+                <p>Oddano: {{ m.cas }}</p>
+                {% if session.get('admin') %}
+                <form method="POST" action="/izbrisi_mnenje/{{ m.doc_id }}">
+                    <button type="submit">Izbriši</button>
+                </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div style="text-align: right; margin-top: 20px;">
+            {% if not session.get('admin') %}
+                <a href="/admin_login" style="color: #f2b800; font-size: 0.9rem;">Prijava kot admin</a>
+            {% else %}
+                <a href="/admin_logout" style="color: #f2b800; font-size: 0.9rem;">Odjava admin</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

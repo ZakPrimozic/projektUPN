@@ -4,100 +4,110 @@
     <meta charset="UTF-8">
     <title>Flash kartice</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        body {
-            font-family: "Segoe UI", sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px;
-        }
+<style>
+    body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #121212;
+        color: #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px;
+    }
 
-        .kartice-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
+    h1, h2 {
+        color: #f2b800;
+    }
 
-        .kartica {
-            width: 220px;
-            height: 140px;
-            margin: 15px;
-            perspective: 1000px;
-        }
+    .kartice-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 
-        .notranjost {
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            position: relative;
-            cursor: pointer;
-        }
+    .kartica {
+        width: 220px;
+        height: 140px;
+        margin: 15px;
+        perspective: 1000px;
+    }
 
-        .kartica.flip .notranjost {
-            transform: rotateY(180deg);
-        }
+    .notranjost {
+        width: 100%;
+        height: 100%;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        position: relative;
+        cursor: pointer;
+    }
 
-        .spredaj, .zadaj {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
+    .kartica.flip .notranjost {
+        transform: rotateY(180deg);
+    }
 
-        .spredaj {
-            background-color: #ffffff;
-            color: #333;
-        }
+    .spredaj, .zadaj {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        text-align: center;
+        font-weight: bold;
+    }
 
-        .zadaj {
-            background-color: #007bff;
-            color: white;
-            transform: rotateY(180deg);
-        }
+    .spredaj {
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+        border: 1px solid #333;
+    }
 
-        form {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            width: 300px;
-        }
+    .zadaj {
+        background-color: #f2b800;
+        color: #000;
+        transform: rotateY(180deg);
+        border: 1px solid #f2b800;
+    }
 
-        input, button {
-            width: 100%;
-            margin: 10px 0;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
+    form {
+        margin-top: 30px;
+        padding: 20px;
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(255, 255, 255, 0.05);
+        width: 300px;
+    }
 
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
+    input, button {
+        width: 100%;
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #333;
+        background-color: #2a2a2a;
+        color: #f0f0f0;
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+    input::placeholder {
+        color: #aaa;
+    }
+    button {
+        background-color: #f2b800;
+        color: #000;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-        h1, h2 {
-            color: #333;
-        }
-    </style>
+    button:hover {
+        background-color: #ffd400;
+    }
+</style>
 </head>
 <body>
     <h1>Flash kartice za slovenščino</h1>
@@ -125,18 +135,19 @@
         $('.kartica').on('click', function() {
             $(this).toggleClass('flip');
         });
-
         // dodajanje kartice preko AJAX
         $('#nova-kartica').on('submit', function(e) {
             e.preventDefault();
             let vprasanje = $('#vprasanje').val();
             let odgovor = $('#odgovor').val();
-
             $.ajax({
                 url: "/flash",
                 method: "POST",
                 contentType: "application/json",
-                data: JSON.stringify({ vprasanje: vprasanje, odgovor: odgovor }),
+                data: JSON.stringify({
+                    vprasanje: vprasanje, 
+                    odgovor: odgovor 
+                }),
                 success: function(res) {
                     alert("Kartica uspešno dodana!");
                     location.reload();

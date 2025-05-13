@@ -3,7 +3,6 @@ from tinydb import TinyDB, Query
 import json
 from datetime import datetime
 import random
-from gemini_api import generate_gemini_response
 # ------------------------------------------------------------------------------------------------------- 
 app = Flask(__name__)
 app.secret_key = 'ključ'
@@ -12,6 +11,7 @@ db = TinyDB("uporabni.json")
 vprasanja_db = TinyDB("matura_vprasanja.json")
 rez_db = TinyDB('rezultati.json')
 flash_db = TinyDB("flash_kartice.json")
+mnenje_db = TinyDB("mnenja.json")
 User = Query()
 # ------------------------------------------------------------------------------------------------------- 
 @app.route('/')
@@ -191,6 +191,41 @@ def flash_kartice():
         return jsonify({"status": "dodano"}), 200
     kartice = flash_db.all()
     return render_template("flash.html", kartice=kartice)
+# -------------------------------------------------------------------------------------------------------
+@app.route("/mnenje", methods=['GET', 'POST'])
+def mnenjee():
+    if request.method == "POST":
+        ime = request.form.get("ime")
+        besedilo = request.form.get("besedilo")
+        mnenje_db.insert({
+            "ime": ime,
+            "besedilo": besedilo,
+            "cas": datetime.now().strftime("%d.%m.%Y %H:%M")
+        })
+    vsa_mnenja = mnenje_db.all()
+    return render_template("mnenje.html", mnenja = vsa_mnenja)
+# -------------------------------------------------------------------------------------------------------
+@app.route("/admin_login", methods=["GET", "POST"])
+def admin_login():
+    if request.method == "POST":
+        geslo = request.form.get("geslo")
+        if geslo == "ključ":
+            session["admin"] = True
+            return redirect("/mnenje")
+        else:
+            return render_template("admin_prijava.html", napaka="Napačno geslo.")
+    return render_template("admin_prijava.html")
+# -------------------------------------------------------------------------------------------------------
+@app.route("/admin_logout")
+def admin_logout():
+    session.pop("admin", None)
+    return redirect("/")
+# -------------------------------------------------------------------------------------------------------
+@app.route("/izbrisi_mnenje/<int:id>", methods=["POST"])
+def izbrisi_mnenje(id):
+    if session.get("admin"):
+        mnenje_db.remove(doc_ids=[id])
+    return redirect("/mnenje")
 # -------------------------------------------------------------------------------------------------------
 if __name__ == '__main__':
     app.run(debug=True, port=8080)

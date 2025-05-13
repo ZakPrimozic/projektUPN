@@ -4,42 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dnevni kviz</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 2rem;
-        }
-        .vprasanje {
-            background-color: #fae09a;
-            padding: 1rem;
-            border-radius: 8px;
-        }
-        .rezultat {
-            margin-top: 1rem;
-            font-weight: bold;
-        }
-        .pravilen {
-            color: green;
-        }
-        .napacen {
-            color: red;
-        }
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s ease;
-            margin-top: 1rem;
-        }
+<style>
+    body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #121212;
+        color: #f0f0f0;
+        margin: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    .vprasanje {
+        background-color: #1e1e1e;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(255, 255, 255, 0.05);
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
+
+    label {
+        display: block;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        color: #f2b800;
+    }
+
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #333;
+        background-color: #2a2a2a;
+        color: #f0f0f0;
+        font-size: 1rem;
+    }
+
+    input::placeholder {
+        color: #aaa;
+    }
+
+    .rezultat {
+        margin-top: 1.5rem;
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    .pravilen {
+        color: #00c851;
+    }
+
+    .napacen {
+        color: #ff4444;
+    }
+
+    button {
+        background-color: #f2b800;
+        color: #000;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 1.5rem;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #ffd400;
+    }
+</style>
 </head>
 <body>
     <div class="vprasanje">

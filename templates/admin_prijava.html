@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin prijava</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #f0f0f0;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .okvir {
+            max-width: 400px;
+            margin: 60px auto;
+            background-color: #1e1e1e;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
+
+        h1 {
+            color: #f2b800;
+            margin-bottom: 20px;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+            margin-bottom: 20px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #f2b800;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #ffd400;
+            transform: scale(1.05);
+        }
+
+        .napaka {
+            color: #ff4d4d;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="okvir">
+        <h1>Admin prijava</h1>
+        <form method="POST">
+            <input type="password" name="geslo" placeholder="Vnesi admin geslo" required>
+            <button type="submit">Prijava</button>
+        </form>
+        {% if napaka %}
+            <p class="napaka">{{ napaka }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

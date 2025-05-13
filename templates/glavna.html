@@ -67,14 +67,19 @@
             padding: 15px;  
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-
         .gumb_za_darkmode {
+            background-color: #f2b800;
+            color: #000;
             padding: 10px 20px;
-            font-size: 8px;
-            border-radius: 10%;
+            font-size: 14px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
-        
         body.dark-mode {
             background-color: #121212;
             color: white;
@@ -107,37 +112,38 @@
             background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(255, 255, 255, 0));
             z-index: 1;
         }
-
-        .okvir {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 800px;
+        .okvir, .grafOkvir {
+            background-color: rgba(18, 18, 18, 0.95);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            color: #f0f0f0;
             text-align: center;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeIn 1s ease-in-out forwards;
             position: relative;
             z-index: 2;
+            max-width: 800px;
             width: 100%;
             box-sizing: border-box;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .grafOkvir {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            text-align: center;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 1s ease-in-out forwards;
+            max-width: 420px;
+            margin-top: 20px;
+            background-color: rgba(30, 30, 30, 0.95);
             position: relative;
-            z-index: 2;
-            width: 100%;
-            box-sizing: border-box;
-            margin: 0 auto;
+        }
+        .typing {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #f2b800;
+            animation: typing 3s steps(30, end) forwards, blink 0.8s infinite;
+            font-weight: bold;
+            color: #f2b800;
         }
         @keyframes fadeIn {
             from {
@@ -215,6 +221,46 @@
         .navigation-buttons .next:before {
             content: '→';
         }
+        .obvestilo {
+            background-color: rgba(255, 230, 0, 0.9);
+            border-radius: 10px;
+            color: #000;
+            text-align: center;
+            padding: 16px;
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mnenje-blok {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.95);
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            box-sizing: border-box;
+            backdrop-filter: blur(6px);
+        }
+
+        .gumb-mnenje {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 24px;
+            background-color: #f2b800;
+            color: #000;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .gumb-mnenje:hover {
+            background-color: #ffd400;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -236,6 +282,12 @@
             {% else %}
                 <a href="/prijava">Prijava</a>
             {% endif %}
+            {% if not session.get('admin') %}
+                <a href="/admin_login">Admin</a>
+            {% else %}
+                <a href="/admin_logout" style="color: #f2b800;">Odjava admin</a>
+            {% endif %}
+        </nav>
     </header>
     <main>
         <div class="okvir">
@@ -246,9 +298,19 @@
                 <button class="next" onclick="changeContent(1)"></button>
             </div>
         </div>
-        <div class = "grafOkvir">
+        <div class="grafOkvir">
             <h2><span>Graf dijakov, ki so naredili maturo</span></h2>
-            <canvas id="grafMature" width="200" height="200"></canvas> 
+            <canvas id="grafMature" style="width:100%; max-width:400px; height:300px;"></canvas>
+
+            <div class="obvestilo">
+                <p>Novost: Dodan nov sklop – Maturitetni kviz iz eseja!</p>
+                <a href="/matura" class="gumb-mnenje">Preveri znanje</a>
+            </div>
+
+            <div class="mnenje-blok">
+                <p style="font-size: 1.1rem;">Imate mnenje ali predlog?</p>
+                <a href="/mnenje" class="gumb-mnenje">Pusti svoje mnenje</a>
+            </div>
         </div>
     </main>
     <footer>
