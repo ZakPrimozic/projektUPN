@@ -5,7 +5,7 @@ from datetime import datetime
 import random
 # ------------------------------------------------------------------------------------------------------- 
 app = Flask(__name__)
-app.secret_key = 'ključ'
+app.secret_key = 'matejgay123'
 # ------------------------------------------------------------------------------------------------------- 
 db = TinyDB("uporabni.json")
 vprasanja_db = TinyDB("matura_vprasanja.json")
@@ -209,7 +209,7 @@ def mnenjee():
 def admin_login():
     if request.method == "POST":
         geslo = request.form.get("geslo")
-        if geslo == "ključ":
+        if geslo == "matejgay123":
             session["admin"] = True
             return redirect("/mnenje")
         else:
