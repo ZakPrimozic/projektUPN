@@ -5,20 +5,20 @@ from datetime import datetime
 import random
 # ------------------------------------------------------------------------------------------------------- 
 app = Flask(__name__)
-app.secret_key = 'matejgay123'
+app.secret_key = "matejgay123"
 # ------------------------------------------------------------------------------------------------------- 
 db = TinyDB("uporabni.json")
 vprasanja_db = TinyDB("matura_vprasanja.json")
-rez_db = TinyDB('rezultati.json')
+rez_db = TinyDB("rezultati.json")
 flash_db = TinyDB("flash_kartice.json")
 mnenje_db = TinyDB("mnenja.json")
 User = Query()
 # ------------------------------------------------------------------------------------------------------- 
-@app.route('/')
+@app.route("/")
 def glavna_stran():
     return render_template("glavna.html")
 # ------------------------------------------------------------------------------------------------------- 
-@app.route('/1letnik')
+@app.route("/1letnik")
 def letnik1():
     return render_template("1letnik.html")
 
@@ -52,7 +52,7 @@ def odjava():
 def pridobi_uporabnike():
     return jsonify(db.all())
 # -------------------------------------------------------------------------------------------------------   
-@app.route('/graf_mature', methods=['GET'])
+@app.route("/graf_mature", methods=["GET"])
 def graf_mature():
     podatki = {
         "skupno": 6294,
@@ -94,34 +94,34 @@ def kviz():
         )
     return render_template("matura.html", vprasanja=vprasanja)
 # ------------------------------------------------------------------------------------------------------- 
-@app.route('/shrani_rezultat', methods=['POST'])
+@app.route("/shrani_rezultat", methods=["POST"])
 def shrani_rezultat():
     podatki = request.json
     uporabnik = session.get("username")
     priimek = session.get("priimek")
     rezultat = {
-        'uporabnik': uporabnik,
-        'priimek': priimek,
-        'tocke': podatki['tocke'],
-        'skupno': podatki['skupno'],
-        'datum': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-        'kategorija': podatki.get('kategorija', 'neznano')
+        "uporabnik": uporabnik,
+        "priimek": priimek,
+        "tocke": podatki["tocke"],
+        "skupno": podatki["skupno"],
+        "datum": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "kategorija": podatki.get("kategorija")
     }
     rez_db.insert(rezultat)
     return jsonify({"sporocilo": "Rezultat shranjen!"}), 200
 
 # se nedela pravilno
 # ------------------------------------------------------------------------------------------------------- 
-@app.route('/dnevno_vprasanje', methods=['GET', 'POST'])
+@app.route("/dnevno_vprasanje", methods=["GET", "POST"])
 def dnevno_vprasanje():
     vprasanja = nalozi_vprasanja()
-    danes = datetime.now().strftime('%Y-%m-%d')
+    danes = datetime.now().strftime("%Y-%m-%d")
     random.seed(danes)
     vprasanje = random.choice(vprasanja)
     prikazi = False
     je_pravilen = False
 
-    if request.method == 'POST':
+    if request.method == "POST":
         odgovor = request.form.get("odgovor", "")
         pravilen = str(vprasanje.get("odgovor", ""))
         je_pravilen = odgovor.lower() == pravilen.lower()
@@ -192,7 +192,7 @@ def flash_kartice():
     kartice = flash_db.all()
     return render_template("flash.html", kartice=kartice)
 # -------------------------------------------------------------------------------------------------------
-@app.route("/mnenje", methods=['GET', 'POST'])
+@app.route("/mnenje", methods=["GET", "POST"])
 def mnenjee():
     if request.method == "POST":
         ime = request.form.get("ime")
@@ -227,5 +227,38 @@ def izbrisi_mnenje(id):
         mnenje_db.remove(doc_ids=[id])
     return redirect("/mnenje")
 # -------------------------------------------------------------------------------------------------------
-if __name__ == '__main__':
+
+# se nedela 
+def vprasanja_1_letnik():
+    with open("vp_1_letnik.json", "r", encoding="utf-8") as f:
+        vprasanja_1 = json.load(f)
+    return vprasanja_1
+# -------------------------------------------------------------------------------------------------------
+def premesaj_vprasanja_1letnik(vprasanja_1):
+    random.shuffle(vprasanja_1)
+    return vprasanja_1
+# -------------------------------------------------------------------------------------------------------
+@app.route("/1letnik", methods=["GET", "POST"])
+def kviz_1letnik():
+    vprasanja_1 = vprasanja_1_letnik()
+    vprasanja_1 = premesaj_vprasanja_1letnik(vprasanja_1)
+    if request.method == "POST":
+        rezultati = []
+        pravilni = 0
+        for i in range(len(vprasanja_1)):
+            odgovor = request.form.get(f"odgovor_{i}")
+            pravilen = str(vprasanja_1[i]["odgovor"]).lower()
+            en_rezultat = {
+                "vprasanje": vprasanja_1[i]["vprasanje"],
+                "pravilen": pravilen,
+                "uporabnikov": odgovor,
+                "je_pravilen": odgovor == pravilen
+            }
+            rezultati.append(en_rezultat)
+            if odgovor == pravilen:
+                pravilni += 1
+        napacni =len(vprasanja_1)- pravilni
+        return render_template("1letnik.html", rezultati=rezultati, pravilni=pravilni, napacni=napacni)
+    return render_template("1letnik.html", vprasanja_1=vprasanja_1)
+if __name__ == "__main__":
     app.run(debug=True, port=8080)

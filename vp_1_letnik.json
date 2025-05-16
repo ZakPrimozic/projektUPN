@@ -1,0 +1,102 @@
+[
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Slovenščina spada med slovanske jezike.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "V stavku 'Učenci berejo knjige' je 'berejo' glagol.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Veliko začetnico uporabljamo pri začetku stavka.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Samostalnik se ne sklanja.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Pesem je lahko lirska, epska ali dramska.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Beseda 'pisatelj' je izpeljana iz samostalnika 'pisava'.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Pri naštevanju vejico pišemo pred veznikom 'in'.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Med nepregibne besedne vrste spadajo predlogi.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Mit je vrsta umetnostnega besedila.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "V povedi 'Manca poje pesem.' je 'pesem' predmet.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Glagoli se ne spreminjajo po času.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Krajše povedi se vedno končajo s podpičjem.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Pravljica je značilna za ljudsko književnost.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Zloženka je sestavljena iz dveh samostojnih besed.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Beseda 'lepa' je pridevnik.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Poved 'Jaz sem.' je zložena poved.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Basen vsebuje nauk.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Samostalniki imajo tudi kategorijo časa.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Osebna imena pišemo z veliko začetnico.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Predpona je del besede, ki stoji za korenom.",
+        "odgovor": "false"
+    }
+]

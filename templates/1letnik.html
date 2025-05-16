@@ -1,244 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Form</title>
+    <title>Kviz za 1. letnik</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
             padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        }
+
+        h1, h2 {
             text-align: center;
+            color: #333;
         }
+
         form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
             max-width: 800px;
-        }
-        table {
-            width: 100%;
-            margin-bottom: 20px;
-            border-spacing: 0;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        td {
-            text-align: left;
-            padding: 10px;
-            font-size: 1.1em;
+        .vprasanje-blok {
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
         }
-        strong {
-            font-size: 1.2em;
-            margin-bottom: 10px;
+
+        label {
+            margin-right: 20px;
+        }
+
+        button {
             display: block;
-        }
-
-        input[type="radio"] {
-            margin-right: 10px;
-            margin-bottom: 5px;
-        }
-        input[type="button"], input[type="reset"] {
-            background-color: #4CAF50;
+            margin: 20px auto 0 auto;
+            padding: 12px 25px;
+            background-color: #007bff;
             color: white;
+            font-size: 16px;
             border: none;
-            padding: 10px 20px;
-            font-size: 1.1em;
+            border-radius: 6px;
             cursor: pointer;
-            border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
-        input[type="button"]:hover, input[type="reset"]:hover {
-            background-color: #45a049;
-        }
-        textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 1.1em;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            resize: vertical;
-            transition: border-color 0.3s ease;
+        button:hover {
+            background-color: #0056b3;
         }
 
-        textarea:focus {
-            border-color: #4CAF50;
+        .pravilen {
+            background-color: #d4edda;
+            border-left: 5px solid #28a745;
         }
-        input[name="percentage"] {
-            padding: 10px;
-            font-size: 1.1em;
-            border: 2px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-            margin-bottom: 20px;
+
+        .napacen {
+            background-color: #f8d7da;
+            border-left: 5px solid #dc3545;
         }
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
 
-            form {
-                width: 100%;
-                max-width: none;
-                padding: 15px;
-            }
-
-            table {
-                font-size: 0.9em;
-            }
-
-            input[type="button"], input[type="reset"] {
-                width: 100%;
-            }
+        .rezultat {
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
         }
-        .siva {
-            background-color: #f4f4f4;
+
+        strong {
+            color: #333;
+        }
+
+        #graf {
+            max-width: 400px;
+            margin: 30px auto;
         }
     </style>
 </head>
 <body>
-    <form name="quiz">
-        <table>
-           <tr>
-               <td>
-                   <strong>1. Računalnik so v začetku načrtovali kot napravo za: </strong><br />
-                   <input name="vprasanje1" type="radio" value="meritve"> meritve <br />
-                   <input name="vprasanje1" type="radio" value="izvajanje osnovnih matematičnih operacij ( +, - , × , ÷ )"> izvajanje osnovnih matematičnih operacij ( +, - , × , ÷ ) <br />
-                   <input name="vprasanje1" type="radio" value="komuniciranje"> komuniciranje 
-               </td>
-           </tr>
-           <tr>
-               <td><strong>2. Kaj je integrirano vezje? </strong><br />
-                   <input name="vprasanje2" type="radio" value="drugo ime za računalnik"> drugo ime za računalnik <br />
-                   <input name="vprasanje2" type="radio" value="tranzistroji, ki so povezani z drobnimi žicami"> tranzistroji, ki so povezani z drobnimi žicami <br />
-                   <input name="vprasanje2" type="radio" value="ploščica s pomanjšanimi elektronskimi elementi"> ploščica s pomanjšanimi elektronskimi elementi 
-               </td>
-           </tr>
-           <tr>
-               <td><strong>3. Informatika je: </strong><br />
-                   <input name="vprasanje3" type="radio" value="veda, ki proučuje obdelavo informacij"> veda, ki proučuje obdelavo informacij <br />
-                   <input name="vprasanje3" type="radio" value="veda, ki proučuje zbiranje informacij"> veda, ki proučuje zbiranje informacij <br />
-                   <input name="vprasanje3" type="radio" value="veda o elektronskem prenašanju sporočil"> veda o elektronskem prenašanju sporočil
-               </td>
-           </tr>
-           <tr>
-               <td><strong>4. Z računalnikom lahko podatke: </strong><br />
-                   <input name="vprasanje4" type="radio" value="le obdelujemo"> le obdelujemo <br />
-                   <input name="vprasanje4" type="radio" value="le shranjujemo"> le shranjujemo <br />
-                   <input name="vprasanje4" type="radio" value="obdelujemo in shranjujemo"> obdelujemo in shranjujemo 
-               </td>
-           </tr>
-           <tr>
-               <td><strong>5. Kaj proučuje teorija informacije? </strong><br />
-                   <input name="vprasanje5" type="radio" value="zakonitosti v zvezi z zbiranjem in prenašanjem informacij"> zakonitosti v zvezi z zbiranjem in prenašanjem informacij <br />
-                   <input name="vprasanje5" type="radio" value="resničnost iformacije"> resničnost iformacije <br />
-                   <input name="vprasanje5" type="radio" value="kako inforamcije z računalnikom obdelujemo"> kako inforamcije z računalnikom obdelujemo 
-               </td>
-           </tr>
-           <tr>
-               <td><strong>6. Izračunaj oziroma drugače utemelji dvojiški zapis desetiškega števila 139 je: </strong><br />
-                   <input name="vprasanje6" type="radio" value="11110001"> 11110001 <br />
-                   <input name="vprasanje6" type="radio" value="10001111"> 10001111 <br />
-                   <input name="vprasanje6" type="radio" value="10001011"> 10001011 
-               </td>
-           </tr>
-           <tr>
-               <td><strong>7. Rešitev poskusa s 32 mogočimi izidi da: </strong><br />
-                   <input name="vprasanje7" type="radio" value="5 bitov informacije"> 5 bitov informacije <br />
-                   <input name="vprasanje7" type="radio" value="8 bitov informacije"> 8 bitov informacije <br />
-                   <input name="vprasanje7" type="radio" value="32 bitov informacije"> 32 bitov informacije
-               </td>
-           </tr>
-           <tr>
-               <td><strong>8. Kaj pomeni kodiranje v informatiki? </strong><br />
-                   <input name="vprasanje8" type="radio" value="prenašanje kodnih signalov po zvezah"> prenašanje kodnih signalov po zvezah <br />
-                   <input name="vprasanje8" type="radio" value="pretvorbo sporočila v zaporedje signalov"> pretvorbo sporočila v zaporedje signalov <br />
-                   <input name="vprasanje8" type="radio" value="skrivno šifriranje besedila"> skrivno šifriranje besedila 
-               </td>
-           </tr>
-           <tr>
-               <td><strong>9. Kaj lahko shranjujemo z računalnikom? </strong><br />
-                   <input name="vprasanje9" type="radio" value="z računalnikom podatke lahko le obdelujemo"> z računalnikom podatke lahko le obdelujemo <br />
-                   <input name="vprasanje9" type="radio" value="razne vrste podatkov"> razne vrste podatkov <br />
-                   <input name="vprasanje9" type="radio" value="samo številske podatke"> samo številske podatke
-               </td>
-           </tr>
-           <tr>
-               <td><strong>10. Človek informacije sprejema: </strong><br />
-                   <input name="vprasanje10" type="radio" value="zavestno in podzavestno"> zavestno in podzavestno <br />
-                   <input name="vprasanje10" type="radio" value="samo v vizualni obliki"> samo v vizualni obliki <br />
-                   <input name="vprasanje10" type="radio" value="samo zavestno"> samo zavestno
-               </td>
-           </tr>
-           <tr>
-               <td class="siva">
-                   <br />
-                   <input type="button" value="Preveri pravilnost odgovorov!" onclick="izracunajRezultat(document.quiz)">
-                   <input type="reset" value="Ponovno" name="reset"><br />
-                   <br />
-                   <strong>Odstotne točke = </strong><input name="percentage" size="15"><br />
-                   <br />
-                   <strong>Pravilni odgovori:</strong><br />                                   
-                   <textarea cols="64" name="solutions" rows="11" wrap="virtual"></textarea>
-               </td>
-           </tr>
-       </table>
-    </form>
-    
-    <script>
-        var steviloVprasanj = 10;
-        var steviloOdgovorov = 3;
+    <h1>Kviz za 1. letnik</h1>
 
-        function izracunajRezultat(form) {
-            var tocke = 0;
-            var trenutniElement;
-            var trenutnaIzbira;
-            for (var i = 0; i < steviloVprasanj; i++) {
-                trenutniElement = i * steviloOdgovorov;
-                for (var j = 0; j < steviloOdgovorov; j++) {
-                    trenutnaIzbira = form.elements["vprasanje" + (i+1)][j];
-                    if (trenutnaIzbira.checked) {
-                        if (trenutnaIzbira.value == odgovor[i]) {
-                            tocke++;
-                            break;
+    <form method="POST">
+        {% if vprasanja_1 %}
+            {% for v in vprasanja_1 %}
+                <div class="vprasanje-blok">
+                    <p>{{ v.vprasanje }}</p>
+                    <label>
+                        <input type="radio" name="odgovor_{{ loop.index0 }}" value="true" required> True
+                    </label>
+                    <label>
+                        <input type="radio" name="odgovor_{{ loop.index0 }}" value="false"> False
+                    </label>
+                </div>
+            {% endfor %}
+            <button type="submit">Oddaj kviz</button>
+        {% endif %}
+
+        {% if rezultati %}
+            <script>
+                localStorage.setItem("uporabnik", "{{ session.username }}");
+                localStorage.setItem("priimek", "{{ session.priimek }}");
+            </script>
+            <h2>Rezultati</h2>
+            <p style="text-align:center;">
+                Pravilni odgovori: <strong>{{ pravilni }}</strong><br>
+                Napačni odgovori: <strong>{{ napacni }}</strong>
+            </p>
+
+            {% for r in rezultati %}
+                <div class="rezultat {{ 'pravilen' if r.je_pravilen else 'napacen' }}">
+                    <p>{{ r.vprasanje }}</p>
+                    <p>Tvoj odgovor: <strong>{{ r.uporabnikov }}</strong></p>
+                </div>
+            {% endfor %}
+
+            <canvas id="graf" width="400" height="400"></canvas>
+            <button type="button" id="shrani-rezultate">Shrani rezultate</button>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const ctx = document.getElementById('graf').getContext('2d');
+                const graf = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Pravilno', 'Napačno'],
+                        datasets: [{
+                            data: [{{ pravilni }}, {{ napacni }}],
+                            backgroundColor: ['#28a745', '#dc3545'],
+                            borderColor: ['#ffffff', '#ffffff'],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
                         }
                     }
+                });
+
+                function posljiRezultat(tocke, skupaj) {
+                    let uporabnik = localStorage.getItem('uporabnik');
+                    let priimek = localStorage.getItem('priimek');
+                    if (!uporabnik) {
+                        console.warn("Uporabnik ni nastavljen.");
+                        return;
+                    }
+                    $.ajax({
+                        url: '/shrani_rezultat',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            uporabnik: uporabnik,
+                            priimek: priimek,
+                            tocke: tocke,
+                            skupno: skupaj,
+                            kategorija: "1letnik"
+                        }),
+                        success: function (res) {
+                            alert("Rezultat uspešno shranjen!");
+                            window.location.href = "/";
+                        },
+                        error: function (err) {
+                            console.error("Napaka pri shranjevanju:", err);
+                            alert("Rezultata ni bilo mogoče shraniti.");
+                        }
+                    });
                 }
-            }
-            tocke = Math.round((tocke / steviloVprasanj) * 100);
-            form.percentage.value = tocke + "%";
-            var pravilniOdgovor = "";
-            for (var i = 0; i < steviloVprasanj; i++) {
-                pravilniOdgovor += (i + 1) + ". " + odgovor[i] + "\r\n";
-            }
-            form.solutions.value = pravilniOdgovor;
-        }
-        
-        var odgovor = [
-            "izvajanje osnovnih matematičnih operacij ( +, - , × , ÷ )",
-            "ploščica s pomanjšanimi elektronskimi elementi",
-            "veda o elektronskem prenašanju sporočil",
-            "obdelujemo in shranjujemo",
-            "zakonitosti v zvezi z zbiranjem in prenašanjem informacij",
-            "10001011",
-            "5 bitov informacije",
-            "pretvorbo sporočila v zaporedje signalov",
-            "razne vrste podatkov",
-            "zavestno in podzavestno"
-        ];
-    </script>
+
+                document.getElementById('shrani-rezultate').addEventListener('click', function () {
+                    posljiRezultat({{ pravilni }}, {{ pravilni + napacni }});
+                });
+            </script>
+        {% endif %}
+    </form>
 </body>
 </html>
