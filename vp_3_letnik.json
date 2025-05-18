@@ -1,0 +1,157 @@
+[
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Samostalniki so vedno pregibne besede.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Povedni člen povedi je vedno glagol.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Osebna imena narodov vedno pišemo z malo začetnico.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Epska pesnitev je zvrst lirske književnosti.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Pridevnik ima tudi kategorijo določnosti.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Zloženke vsebujejo več kot eno osnovo.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Nepregibne besede vključujejo veznike, prislove in členke.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Vse povedi morajo vsebovati najmanj tri stavčne člene.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Okrajšave se v slovenščini nikoli ne končajo s piko.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Satira je oblika kritične, pogosto humorne književnosti.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Samostalniki nimajo kategorije spola.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Pripona se v besedi vedno nahaja pred osnovo.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Beseda 'počasi' je prislov.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Stavčna členitev ni pomembna za razumevanje pomena povedi.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Narekovaje uporabljamo tudi pri neposrednem govoru.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Epika se vedno piše v verzih.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Glagolski vid ločimo na dovršni in nedovršni.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Beseda 'nerazumevanje' vsebuje predpono in pripono.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Med samostalniške besede spada tudi beseda 'lepo'.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Vrste povedi po namenu so trdilna, vprašalna, velelna in željna.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "V slovenščini ločila nikoli ne vplivajo na pomen povedi.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Dramatika vključuje besedila, namenjena uprizarjanju.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Število v slovenščini poznamo kot ednino, dvojino in množino.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Zloženka nastane samo iz tujega in domačega korena.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Jezikoslovje",
+        "vprasanje": "Členki lahko izražajo odnos govorca do vsebine.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Skladnja",
+        "vprasanje": "Stavki se vedno začnejo z veliko začetnico in končajo z ločilom.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Pravopis",
+        "vprasanje": "Naslove knjig pišemo z velikimi tiskanimi črkami.",
+        "odgovor": "false"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Realizem se je pojavil po romantiki.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Slovnične kategorije",
+        "vprasanje": "Glagoli se ne sklanjajo, temveč spregajo.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Besedotvorje",
+        "vprasanje": "Beseda 'pozdravljeni' vsebuje predpono, osnovo in pripono.",
+        "odgovor": "true"
+    },
+    {
+        "naslov": "Književnost",
+        "vprasanje": "Esej je strokovno znanstveno besedilo.",
+        "odgovor": "false"
+    }
+]

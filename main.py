@@ -18,10 +18,6 @@ User = Query()
 def glavna_stran():
     return render_template("glavna.html")
 # ------------------------------------------------------------------------------------------------------- 
-@app.route("/1letnik")
-def letnik1():
-    return render_template("1letnik.html")
-
 # ------------------------------------------------------------------------------------------------------- 
 @app.route("/prijava")
 def prijava():
@@ -260,5 +256,37 @@ def kviz_1letnik():
         napacni =len(vprasanja_1)- pravilni
         return render_template("1letnik.html", rezultati=rezultati, pravilni=pravilni, napacni=napacni)
     return render_template("1letnik.html", vprasanja_1=vprasanja_1)
+# -------------------------------------------------------------------------------------------------------
+def vprasanja_3_letnik():
+    with open("vp_3_letnik.json", "r", encoding="utf-8") as f:
+        vprasanja_3 = json.load(f)
+    return vprasanja_3
+# -------------------------------------------------------------------------------------------------------
+def premesaj_vprasanja_3letnik(vprasanja_3):
+    random.shuffle(vprasanja_3)
+    return vprasanja_3
+# -------------------------------------------------------------------------------------------------------
+@app.route("/3letnik", methods=["GET", "POST"])
+def kviz_3letnik():
+    vprasanja_3 = vprasanja_3_letnik()
+    vprasanja_3 = premesaj_vprasanja_3letnik(vprasanja_3)
+    if request.method == "POST":
+        rezultati = []
+        pravilni = 0
+        for i in range(len(vprasanja_3)):
+            odgovor = request.form.get(f"odgovor_{i}")
+            pravilen = str(vprasanja_3[i]["odgovor"]).lower()
+            en_rezultat = {
+                "vprasanje": vprasanja_3[i]["vprasanje"],
+                "pravilen": pravilen,
+                "uporabnikov": odgovor,
+                "je_pravilen": odgovor == pravilen
+            }
+            rezultati.append(en_rezultat)
+            if odgovor == pravilen:
+                pravilni += 1
+        napacni =len(vprasanja_3)- pravilni
+        return render_template("3letnik.html", rezultati=rezultati, pravilni=pravilni, napacni=napacni)
+    return render_template("3letnik.html", vprasanja_3=vprasanja_3)
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
