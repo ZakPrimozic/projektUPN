@@ -11,11 +11,47 @@
         color: #f0f0f0;
         margin: 2rem;
         display: flex;
-        justify-content: center;
-        align-items: center;
         height: 100vh;
     }
+    .navbar {
+        background-color: #000;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 10px; 
+    }
+
+    .logo {
+        height: 100px;
+        border-radius: 20px;
+    }
+    .menu {
+        display: flex;
+        gap: 20px;
+    }
+
+    .menu a {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+    .menu a:hover {
+        color: #f2b800;
+    }
+    .brand-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
+    }
     .vprasanje {
         background-color: #1e1e1e;
         padding: 2rem;
@@ -85,6 +121,31 @@
 </style>
 </head>
 <body>
+    <header class="navbar">
+        <div class="logo-container">
+            <img src="static/photos/logo.jpg" alt="Logotip" class="logo">
+            <span class="brand-name">BrainMatura</span>
+        </div>
+        <nav class="menu">
+            <a href="/1letnik">1 letnik</a>
+            <a href="/2letnik">2 letnik</a>
+            <a href="/3letnik">3 letnik</a>
+            <a href="/flash">Flash kartice</a>
+            <a href="/matura">Matura</a>
+            <a href="/dnevno_vprasanje">Dnevni Kviz</a>
+            {% if session.logged_in %}
+                <a href="/profil" style="color: yellow;">{{ session.username }}</a>
+                <a href="/odjava">Odjava</a>
+            {% else %}
+                <a href="/prijava">Prijava</a>
+            {% endif %}
+            {% if not session.get('admin') %}
+                <a href="/admin_login">Admin</a>
+            {% else %}
+                <a href="/admin_logout" style="color: #f2b800;">Odjava admin</a>
+            {% endif %}
+        </nav>
+    </header>
     <div class="vprasanje">
         <p><strong>{{ vprasanje.vprasanje }}</strong></p>
         {% if not prikazi_rezultat %}

@@ -29,10 +29,9 @@ def shrani_uporabnika():
     if session.get("logged_in"):
         return jsonify({"message": "Uporabnik je že prijavljen!"}), 400
     nova_vnos = request.get_json()
-    
+
     if not nova_vnos:
         return jsonify({"error": "Manjkajo podatki!"}), 400
-
     db.insert(nova_vnos)
     session["logged_in"] = True
     session["username"] = nova_vnos.get("ime", "")
